@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Laporan Belajar — Bimbel Nurul Jannah</title>
+<style>
+:root{--purple:#7965a8;--lav:#eee8fa;--blue:#e6f3fb;--sage:#e6efe5;--pink:#fae8ef;--ink:#353247;--muted:#777487}
+*{box-sizing:border-box}body{margin:0;background:#f5f2fa;color:var(--ink);font-family:"Nunito","Open Sans",Arial,sans-serif}
+.app{max-width:1100px;margin:24px auto;padding:0 16px}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:14px}
+button{border:0;border-radius:999px;padding:11px 17px;font-weight:800;cursor:pointer;background:var(--lav);color:#514277}
+button.primary{background:#25D366;color:#073d20}button.dark{background:var(--purple);color:white}button.soft{background:white;border:1px solid #e4deef}
+.sheet{background:white;width:100%;padding:26px;border-radius:18px;box-shadow:0 8px 30px #43316b12}
+.hero{display:flex;align-items:center;gap:14px;border-bottom:2px solid var(--lav);padding-bottom:18px}
+.logo{width:62px;height:62px;border-radius:18px;background:linear-gradient(135deg,#e9ddfb,#dff0fa);display:grid;place-items:center;font-size:30px}
+h1{font-family:"Poppins",Arial,sans-serif;font-size:clamp(20px,3vw,28px);line-height:1.2;color:#5d4b87;margin:0 0 5px;font-weight:800}
+.subtitle{color:var(--muted);font-size:13px}.period{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+label{font-size:12px;font-weight:800;color:#625c73;display:block;margin-bottom:5px}
+input,select,textarea{font:inherit;color:var(--ink);border:1px solid #ded9e8;border-radius:9px;padding:9px 10px;background:#fff;width:100%;min-width:0}
+input:focus,select:focus,textarea:focus{outline:2px solid #cfc0ec;border-color:#a998cf}
+.period input{width:105px}.section{margin-top:20px}.section-title{font-family:"Poppins",Arial,sans-serif;font-weight:800;color:#66548d;margin:0 0 10px;font-size:15px}
+.table-wrap{overflow-x:auto;border:1px solid #e9e4f0;border-radius:12px}
+table{width:100%;border-collapse:collapse;min-width:1050px;font-size:12px}
+th{background:#eee8fa;color:#514477;text-align:left;padding:10px 8px;font-weight:800}
+td{padding:7px;border-top:1px solid #eeeaf3;vertical-align:top}td input,td select{font-size:12px;padding:8px}
+td.no{font-weight:900;text-align:center;color:#75639d;width:40px}
+textarea{min-height:74px;resize:vertical;font-size:12px}
+.note{background:linear-gradient(90deg,#e9f3fb,#f8eaf0,#edf3e9);border-radius:12px;padding:13px 15px;margin-top:16px;font-size:12px;color:#5b5870}
+.footer{display:flex;justify-content:space-between;gap:16px;align-items:end;margin-top:20px;flex-wrap:wrap}
+.signature{width:220px;text-align:center;font-size:12px;color:var(--muted)}.line{border-bottom:1px solid #bcb5ca;height:42px;margin-bottom:6px}
+.whatsapp{font-size:14px;padding:14px 22px}.small{font-size:11px;color:var(--muted);margin-top:8px}
+@media print{@page{size:A4 portrait;margin:10mm}body{background:white}.app{margin:0;padding:0;max-width:none}.toolbar,.no-print{display:none!important}.sheet{padding:0;border-radius:0;box-shadow:none}.hero{padding-bottom:10px}h1{font-size:19px}.section{margin-top:12px}table{font-size:9px;min-width:0}th,td{padding:5px 4px}td input,td select,textarea{font-size:9px;padding:4px;border:0;background:transparent}.table-wrap{overflow:visible;border:1px solid #ddd}textarea{min-height:48px}.note{padding:8px}.period input{border:0;padding:3px}.footer{margin-top:12px}}
+@media(max-width:650px){.sheet{padding:16px}.hero{align-items:flex-start;flex-wrap:wrap}.period{margin-left:0;width:100%}.period input{flex:1}}
+</style></head>
+<body><main class="app">
+<div class="toolbar no-print">
+<button class="dark" onclick="addRow()">＋ Tambah Baris</button>
+<button class="soft" onclick="window.print()">Cetak / Simpan PDF</button>
+<button class="soft" onclick="exportWord()">Export Word</button>
+<button class="primary" onclick="sendWhatsApp()">☏ Kirim Laporan ke WhatsApp Orang Tua</button>
+</div>
+<section class="sheet" id="report">
+<header class="hero">
+<div class="logo">📚</div><div><h1>LAPORAN BELAJAR<br>BIMBEL NURUL JANNAH</h1><div class="subtitle">Be smart with fun away ✨ · Laporan perkembangan belajar siswa</div></div>
+<div class="period"><div><label for="bulan">BULAN</label><input id="bulan" type="text" placeholder="Contoh: November"></div><div><label for="tahun">TAHUN</label><input id="tahun" type="number" placeholder="2026"></div></div>
+</header>
+<div class="section"><h2 class="section-title">📝 Catatan Pembelajaran</h2>
+<div class="table-wrap"><table id="reportTable">
+<thead><tr><th>No</th><th>Tanggal</th><th>Nama Siswa</th><th>Kelas / Tingkat</th><th>Mata Pelajaran / Modul</th><th>Materi / Topik</th><th>Tingkat Pemahaman</th><th>Catatan Tutor / Evaluasi</th><th class="no-print">Aksi</th></tr></thead>
+<tbody id="rows"></tbody></table></div>
+</div>
+<div class="note">🌈 <b>Pesan penyemangat:</b> Setiap anak memiliki proses belajar yang unik. Terus berlatih, tetap semangat, dan rayakan setiap kemajuan kecil! ⭐</div>
+<div class="footer"><div class="small">Bimbel Nurul Jannah · Belajar dengan nyaman, tumbuh dengan percaya diri.</div><div class="signature"><div class="line"></div>Nama / Tanda Tangan Tutor</div></div>
+</section>
+<p class="small no-print">Tips: isi satu baris untuk setiap sesi belajar. Tombol PDF membuka dialog cetak; pilih “Save as PDF”. Tombol Word mengunduh dokumen yang dapat dibuka di Microsoft Word.</p>
+</main>
+<script>
+const subjects=['Calistung','Matematika','english','indonesia','pancasila','lainnya'];
+const levels=['Sangat Paham (Sangat Baik / ⭐⭐⭐)','Paham (Baik / ⭐⭐)','Perlu Latihan (Cukup / ⭐)','Belum Paham (Perlu Pendampingan)'];
+let count=0;
+function options(items){return items.map(x=>`<option>${x}</option>`).join('')}
+function addRow(data={}){count++;const tr=document.createElement('tr');tr.innerHTML=`
+<td class="no"></td>
+<td><input type="date" aria-label="Tanggal" value="${data.date||new Date().toISOString().slice(0,10)}"></td>
+<td><input type="text" placeholder="Nama siswa" value="${data.name||''}"></td>
+<td><select><option value="">Pilih kelas</option>${options(['kelas pagi','kelas siang','kelas sore','kelas malam'])}</select></td>
+<td><select><option value="">Pilih modul</option>${options(subjects)}</select></td>
+<td><input type="text" placeholder="Materi / topik" value="${data.topic||''}"></td>
+<td><select><option value="">Pilih pemahaman</option>${options(levels)}</select></td>
+<td><textarea placeholder="Tuliskan progres, kelebihan, dan hal yang perlu dilatih...">${data.notes||''}</textarea></td>
+<td class="no-print"><button class="soft" style="padding:7px 10px" onclick="this.closest('tr').remove();renumber()">Hapus</button></td>`;
+const sels=tr.querySelectorAll('select');if(data.class)sels[0].value=data.class;if(data.subject)sels[1].value=data.subject;if(data.level)sels[2].value=data.level;
+document.getElementById('rows').appendChild(tr);renumber()}
+function renumber(){document.querySelectorAll('#rows tr').forEach((r,i)=>r.querySelector('.no').textContent=i+1)}
+function reportData(){return [...document.querySelectorAll('#rows tr')].map((r,i)=>{let c=r.querySelectorAll('input,select,textarea');return {no:i+1,date:c[0].value,name:c[1].value,kelas:c[2].value,subject:c[3].value,topic:c[4].value,level:c[5].value,notes:c[6].value}})}
+function summary(){let rows=reportData();let bulan=document.getElementById('bulan').value||'-',tahun=document.getElementById('tahun').value||'-';let lines=rows.map(r=>`${r.no}. ${r.date} | ${r.name||'-'} | ${r.kelas||'-'} | ${r.subject||'-'}\nMateri: ${r.topic||'-'}\nPemahaman: ${r.level||'-'}\nCatatan tutor: ${r.notes||'-'}`).join('\n\n');return `*LAPORAN BELAJAR BIMBEL NURUL JANNAH*\nPeriode: ${bulan} ${tahun}\n\n${lines||'Belum ada data pembelajaran.'}\n\nTerima kasih atas dukungan orang tua/wali. 🌈`}
+function sendWhatsApp(){let url='https://wa.me/6285811738380?text='+encodeURIComponent(summary());window.open(url,'_blank')}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function exportWord(){let rows=reportData();let body=rows.map(r=>`<tr>${[r.no,r.date,r.name,r.kelas,r.subject,r.topic,r.level,r.notes].map(v=>`<td>${esc(v)}</td>`).join('')}</tr>`).join('');
+let doc=`<!doctype html><html><head><meta charset="utf-8"><style>@page{size:21cm 29.7cm;margin:1.2cm}body{font-family:Arial;color:#353247}h1{color:#66548d;font-size:18pt}table{border-collapse:collapse;width:100%;font-size:8pt}th{background:#eee8fa;color:#514477}td,th{border:1px solid #bbb;padding:5px;vertical-align:top}</style></head><body><h1>LAPORAN BELAJAR BIMBEL NURUL JANNAH</h1><p>Periode: ${esc(document.getElementById('bulan').value)} ${esc(document.getElementById('tahun').value)}</p><table><thead><tr>${['No','Tanggal','Nama Siswa','Kelas','Mata Pelajaran','Materi','Pemahaman','Catatan Tutor'].map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>${body}</tbody></table><p>Be smart with fun away.</p></body></html>`;
+let blob=new Blob(['\ufeff',doc],{type:'application/msword'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Laporan-Belajar-Nurul-Jannah.doc';a.click();URL.revokeObjectURL(a.href)}
+addRow();
+</script></body></html>
